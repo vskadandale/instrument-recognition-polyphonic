@@ -18,7 +18,7 @@ def patch_label(start, end, time_windows, annotate, binary=False, threshold=None
             eg:
                         S01   S02
                 label    1   0.93
-    This code has been largely borrowed from https://github.com/kvsphantom/instrument-recognition-1/blob/master/data/patch_label.py
+    This code has been largely borrowed from https://github.com/glennq/instrument-recognition/blob/master/data/patch_label.py
     """
     #Transfer time to frame
     annotation = copy.copy(annotate)

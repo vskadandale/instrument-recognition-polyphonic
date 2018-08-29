@@ -34,7 +34,7 @@ WARNING: If save_size is set to 20 in prep_data(), it takes 2 to 10 min to
 
 Need discussion: Too many kinds of instruments (over 80) if use all
 
-This code has been largely borrowed from https://github.com/kvsphantom/instrument-recognition-1/blob/master/data/data_prep.py
+This code has been largely borrowed from https://github.com/glennq/instrument-recognition/blob/master/data/data_prep.py
 """
 
 def create_folder(path):
