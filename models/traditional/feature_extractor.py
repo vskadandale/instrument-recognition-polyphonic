@@ -1,7 +1,6 @@
 import argparse
 import os
 import json
-import itertools
 import numpy as np
 
 import essentia
