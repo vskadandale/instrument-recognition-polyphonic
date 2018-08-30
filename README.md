@@ -19,3 +19,7 @@ Data Preprocessing
 ./data_prep/wav_generator.py  
 ./data_prep/audio_transformer.py  
 
+for traditonal method:  
+
+
+for deep-learning:  

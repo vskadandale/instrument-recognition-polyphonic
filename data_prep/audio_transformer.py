@@ -11,7 +11,7 @@ sys.path.append('..')
 from settings import *
 
 """
-This code splits an audio file into harmonic component and residual component using librosa.
+This code splits an audio file into harmonic component and residual component using librosa and stores them separately.
 The split could be done in multiple configurations by specifying a margin parameter which we skip.
 For more details, visit https://librosa.github.io/librosa/auto_examples/plot_hprss.html
 
