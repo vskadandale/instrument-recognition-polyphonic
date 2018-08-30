@@ -23,5 +23,7 @@ PATH_TO_ORIGINAL_RESULTS='/homedtic/vshenoykadandale/instrument-recognition/data
 PATH_TO_HARMONIC_RESULTS='/homedtic/vshenoykadandale/instrument-recognition/data/harmonic/results'
 PATH_TO_RESIDUAL_RESULTS='/homedtic/vshenoykadandale/instrument-recognition/data/residual/results'
 
+MEDLEY_N_CLASSES=11
+
 ### FOR DEEP LEARNING METHOD ###
 

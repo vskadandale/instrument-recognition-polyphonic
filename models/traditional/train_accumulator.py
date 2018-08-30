@@ -1,4 +1,3 @@
-#all the imports
 import argparse
 import io,math
 import os,sys
@@ -6,7 +5,7 @@ import json
 import numpy as np
 import pickle
 
-import pandas as pd #python library for data manipulation and analysis
+import pandas as pd
 
 #external .py files
 import json_flattener #for flatenning jsons

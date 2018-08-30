@@ -20,6 +20,10 @@ Data Preprocessing
 ./data_prep/audio_transformer.py  
 
 for traditonal method:  
-
+./models/traditional/feature_extractor.py  
+./models/traditional/train_accumulator.py  
+./models/traditional/test_accumulator.py  
+./models/traditional/regressor.py  
 
 for deep-learning:  
+
