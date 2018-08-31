@@ -26,4 +26,21 @@ PATH_TO_RESIDUAL_RESULTS='/homedtic/vshenoykadandale/instrument-recognition/data
 MEDLEY_N_CLASSES=11
 
 ### FOR DEEP LEARNING METHOD ###
+PATH_TO_WAV_FILES='/homedtic/vshenoykadandale/instrument-recognition/data/'
+PATH_TO_LABELS='/homedtic/vshenoykadandale/instrument-recognition/data/dataset_'
+PATH_TO_METADATA='/homedtic/vshenoykadandale/DeepLearning/metadata/'
+PATH_TO_RESULTS='/homedtic/vshenoykadandale/DeepLearning/results/'
+MODEL_MEANS_BASEPATH = './means/'
+MODEL_HISTORY_BASEPATH = './history/'
+MODEL_WEIGHT_BASEPATH = './weights/'
+MEDLEY_TRAIN_FEATURE_BASEPATH = '/homedtic/vshenoykadandale/DeepLearning/data/'
+MEDLEY_TEST_FEATURE_BASEPATH = '/homedtic/vshenoykadandale/DeepLearning/test_data/'
 
+TRAIN_SPLIT = 0.85
+VALIDATION_SPLIT = 0.15
+N_TRAINING_SET = 6705
+MAX_EPOCH_NUM = 400
+EARLY_STOPPING_EPOCH = 20
+SGD_LR_REDUCE = 5
+BATCH_SIZE = 16
+ALLOWED_MODELS = ['han16', 'singlelayer', 'multilayer']
