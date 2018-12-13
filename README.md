@@ -1,4 +1,6 @@
 # instrument-recognition-polyphonic
+This code is published as a part of my master's thesis for the program Sound and Music Computing (SMC) at UPF Barcelona. The manuscript is also made available for more information [here](https://github.com/kvsphantom/instrument-recognition-polyphonic/blob/master/Venkatesh_SMC_THESIS.pdf).
+
 ## Requirements: 
 * MedleyDB (can be downloaded from here : http://medleydb.weebly.com/downloads.html)
 
