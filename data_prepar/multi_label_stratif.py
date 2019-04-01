@@ -1,6 +1,5 @@
 import numpy as np
-import cPickle
-
+import _pickle as cPickle
 
 """
 This file contains the method to randomly split the set of all songs into
@@ -32,7 +31,8 @@ def multi_label_stratif(labels, num_split=2, p_split=[0.8, 0.2],
     """
     # check inputs
     assert(len(p_split) == num_split)
-    assert(sum(p_split) == 1)
+    #assert(round(sum(p_split)) == 1)
+    assert(np.abs(1-sum(np.ones(10)*0.1))<np.finfo(float).eps)
 
     # set random state
     rng = np.random.RandomState(rand_state)
@@ -110,15 +110,15 @@ def multi_label_stratif(labels, num_split=2, p_split=[0.8, 0.2],
 
             # assign and update
             splits[m].append(i)
-            print 'assigned {} to subset {}'.format(i, m)
+            print('assigned {} to subset {}'.format(i, m))
             assert(i in index)
             index.discard(i)
             for e in labels[i]:
                 n_label[e].discard(i)
                 c_label_subset[e][m] -= 1
             c_subset[m] -= 1
-        print 'end of loop for {}'.format(l)
-        print 'Number of unassigned samples = {}'.format(len(index))
+        print('end of loop for {}'.format(l))
+        print('Number of unassigned samples = {}'.format(len(index)))
     return splits
 
 

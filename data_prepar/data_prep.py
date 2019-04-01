@@ -1,7 +1,10 @@
+import sys
+sys.path.append('..')
+
 import argparse
 import numpy as np
 import os
-import cPickle
+import _pickle as cPickle
 import pandas as pd
 import yaml
 import wave
@@ -10,12 +13,11 @@ import gc
 from scipy.io import wavfile
 from scipy.io import savemat
 import copy
-import patch_label
-
-import sys 
-sys.path.append('..')
+from data_prepar.patch_label import patch_label
+import librosa
+from functools import partial
 from settings import *
-
+from multiprocessing import Pool
 
 """
 This file contains all scripts necessary for preparing data.
@@ -51,7 +53,7 @@ def backup_wavfile_reader(fpath):
     """
     f = wave.open(fpath, 'rb')
     res = []
-    for i in xrange(f.getnframes()):
+    for i in range(f.getnframes()):
         frame = f.readframes(1)
         x = struct.unpack('=h', frame[:2])[0]
         y = struct.unpack('=h', frame[2:])[0]
@@ -75,12 +77,12 @@ def read_mixed_from_files(dpath, dlist, pickle_file=None):
         try:
             data = wavfile.read(fpath)[1].T
         except:
-            print "Warning: can't read {}, switch to backup reader". \
-                format(fpath)
+            print("Warning: can't read {}, switch to backup reader". \
+                format(fpath))
             data = backup_wavfile_reader(fpath).T
         res[i] = np.float32(data)
     if pickle_file is not None:
-        with open(pickle_file, 'w') as f:
+        with open(pickle_file, 'wb') as f:
             cPickle.dump(res, f)
     return res
 
@@ -114,10 +116,12 @@ def read_activation_confs(path, pickle_file=None):
         fpath = os.path.join(dpath, i)
         annotation = pd.read_csv(fpath, index_col=False)
         k = i[:-20].split('(')[0]
-        k = k.translate(None, "'-")
+        #k = k.translate(None, "'-")               ### For Python2
+        table = str.maketrans(dict.fromkeys("'-")) ### For Python3
+        k=k.translate(table)
         res[k] = annotation
     if pickle_file is not None:
-        with open(pickle_file, 'w') as f:
+        with open(pickle_file, 'wb') as f:
             cPickle.dump(res, f)
     return res
 
@@ -140,7 +144,7 @@ def read_meta_data(path, pickle_file=None):
         instrument = {k: v['instrument'] for k, v in meta['stems'].items()}
         res[i] = instrument
     if pickle_file is not None:
-        with open(pickle_file, 'w') as f:
+        with open(pickle_file, 'wb') as f:
             cPickle.dump(res, f)
     return res
 
@@ -184,8 +188,47 @@ def match_meta_annotation(meta, annotation):
         all_instruments.update(v.columns[1:])
     return sorted(list(all_instruments))
 
+def audio_transformer(y,n_fft = 2048):
+    n = len(y)
+    y_pad = librosa.util.fix_length(y, n + n_fft // 2)
+    D = librosa.stft(y_pad, n_fft=n_fft)
+    D_harmonic, D_percussive = librosa.decompose.hpss(D)
 
-def split_music_to_patches(data, conf, annotation, inst_map, label_aggr, length=1,
+    y_harmonic = librosa.istft(D_harmonic, length=n)
+    y_residual = librosa.istft(D_percussive, length=n)
+    return y_harmonic,y_residual
+
+def write_wav(path,data):
+    wavfile.write(path, SAMPLING_RATE, data)
+
+def save_patch(patch,patch_partial_path,pool):
+    """ Saves the patch in different channels {left,right,mid,side} and transformations {original,harmonic,residual}.
+        Args:
+            patch (array): first half corresponds to left channel audio,
+                           second half corresponds to right channel audio
+    """
+    left, right = np.hsplit(patch, 2)
+    mid = (left + right) / float(2)  # M
+    side = (left - right)  # S
+    lrms={'left':left,'right':right,'mid':mid,'side':side}
+
+    for k,v_original in lrms.items():
+        v_harmonic,v_residual=audio_transformer(v_original)
+        original_output_path = os.path.join(PATH_TO_ORIGINAL_WAV_FILES, k, patch_partial_path)
+        harmonic_output_path = os.path.join(PATH_TO_HARMONIC_WAV_FILES, k, patch_partial_path)
+        residual_output_path = os.path.join(PATH_TO_RESIDUAL_WAV_FILES, k, patch_partial_path)
+        list(map(partial(create_folder),
+                 [os.path.dirname(original_output_path), os.path.dirname(harmonic_output_path),
+                  os.path.dirname(residual_output_path)]))
+        #wavfile.write(original_output_path, SAMPLING_RATE, v_original)
+        #wavfile.write(harmonic_output_path, SAMPLING_RATE, v_harmonic)
+        #wavfile.write(residual_output_path, SAMPLING_RATE, v_residual)
+        paths=[original_output_path,harmonic_output_path,residual_output_path]
+        data=[v_original,v_harmonic,v_residual]
+        pool.starmap(write_wav, zip(paths, data))
+
+
+def split_music_to_patches(data, conf, annotation, inst_map, label_aggr, pool, length=1,
                            sr=44100, time_window=100.0, binary=False,
                            threshold=None):
     """Split each music file into (length) second patches and label each patch
@@ -216,19 +259,22 @@ def split_music_to_patches(data, conf, annotation, inst_map, label_aggr, length=
     hop = float(conf.split('s_h')[-1])/100
     hop_size = int(hop*patch_size)
     for k, v in data.items():
-        for i, e in enumerate(xrange(0, v.shape[1], hop_size)):
+        segment_id=0
+        for i, e in enumerate(range(0, v.shape[1], hop_size)):
             if(e+patch_size>v.shape[1]):
                 break
             patch = v[:, e:patch_size+e].ravel()
+            patch_partial_path=os.path.join(k, str(segment_id) + '.wav')
+            save_patch(patch,patch_partial_path,pool)
             start_t=i *(length*hop)
             sub_df = annotation[k][(start_t <= annotation[k].time) &
                                    (annotation[k].time < (start_t+length))]
             if label_aggr is not None:
                 inst_conf = sub_df.apply(label_aggr, 0).drop('time')
             else:
-                inst_conf = patch_label.patch_label(0, length, time_window,
-                                                    sub_df, binary,
-                                                    threshold).iloc[0]
+                inst_conf = patch_label(0, length, time_window,
+                                        sub_df, binary,
+                                        threshold).iloc[0]
             label = np.zeros(len(inst_map), dtype='float32')
             is_present = np.zeros(len(inst_map), dtype='float32')
             for j in inst_conf.index:
@@ -238,7 +284,8 @@ def split_music_to_patches(data, conf, annotation, inst_map, label_aggr, length=
                     temp = temp.max()
                 label[inst_map[j]] = temp
                 is_present[inst_map[j]] = 1.0
-            res.append((patch, label, is_present, k, (start_t, start_t+length)))
+            res.append((patch_partial_path, label, is_present, k, (start_t, start_t+length)))
+            segment_id += 1
     X, y, present, song_name, time = zip(*res)
     return {'X': np.array(X), 'y': np.array(y), 'present': np.array(present),
             'song_name': song_name, 'time': np.array(time, dtype='float32')}
@@ -266,7 +313,7 @@ def prep_data(in_path, conf, out_path=os.curdir, save_size=20, norm_channel=Fals
     # save parameters for this run
     to_write = ['{} = {}'.format(k, v) for k, v in locals().items()]
     with open(os.path.join(out_path, 'config.txt'), 'wb') as f:
-        f.write('\n'.join(to_write))
+        f.write('\n'.join(to_write).encode())
 
     # read annotations and match with metadata
     anno_pkl = os.path.join(out_path, 'anno_label.pkl')
@@ -281,7 +328,7 @@ def prep_data(in_path, conf, out_path=os.curdir, save_size=20, norm_channel=Fals
 
     all_instruments = match_meta_annotation(meta, annotation)
     if not os.path.exists(anno_pkl):
-        with open(anno_pkl, 'w') as f:
+        with open(anno_pkl, 'wb') as f:
             cPickle.dump(annotation, f)
 
     # create and save song_instr mapping
@@ -293,36 +340,36 @@ def prep_data(in_path, conf, out_path=os.curdir, save_size=20, norm_channel=Fals
 
     # save all instrument list to file
     with open('all_instruments.txt', 'wb') as f:
-        f.write('\n'.join(all_instruments))
+        f.write('\n'.join(all_instruments).encode())
 
     # get a dictionary mapping all instrument to sorted order
     all_instruments_map = {e: i for i, e in enumerate(all_instruments)}
-    print 'Total number of labels = {}'.format(len(all_instruments))
+    print('Total number of labels = {}'.format(len(all_instruments)))
 
     # read mixed tracks
     dpath = os.path.join(in_path, "Audio")
     dlist = sorted(os.listdir(dpath))  # get list of tracks in sorted order
     # write the list to file as reference for song_names in data
     with open(os.path.join(out_path, 'song_name_list.txt'), 'wb') as f:
-        f.write('\n'.join(dlist))
+        f.write('\n'.join(dlist).encode())
 
     # get a mapping of song names to their sorted order
     song_name_map = {e: i for i, e in enumerate(dlist)}
-    
+    pool = Pool(3)
     matfile_path=PATH_TO_MATFILES+conf
     create_folder(matfile_path)
     for i in range(max(start_from, 0), len(dlist), save_size):
         tdlist = dlist[i:i+save_size]
         data = read_mixed_from_files(dpath, tdlist)
-        print 'finished reading file'
+        print('finished reading file')
         if norm_channel:
             normalize_data(data)
-            print 'finished normalizing data'
+            print('finished normalizing data')
         # split to x second patches
         for k, v in data.items():
             patched_data = split_music_to_patches({k: v}, conf, annotation,
                                                   all_instruments_map,
-                                                  label_aggr, **kwargs)
+                                                  label_aggr,pool, **kwargs)
             temp_l = len(patched_data['song_name'])
             patched_data['song_name'] = np.array([song_name_map[e] for e in
                                                   patched_data['song_name']],
@@ -333,11 +380,11 @@ def prep_data(in_path, conf, out_path=os.curdir, save_size=20, norm_channel=Fals
             if not os.path.exists(patches_save_path):
                 savemat(patches_save_path, patched_data)
             del patched_data
-            print 'finished taking patches of {}'.format(k)
+            print('finished taking patches of {}'.format(k))
         del data
         gc.collect()
-        print 'finished {} of {}'.format(min(i+save_size, len(dlist)),
-                                         len(dlist))
+        print('finished {} of {}'.format(min(i+save_size, len(dlist)),
+                                         len(dlist)))
 
 
 def main():
@@ -351,8 +398,8 @@ def main():
         aparser.error('Please specify the data config!')
     
     prep_data(PATH_TO_DATASET, 
-	      conf=args.config, 
-              length=float(args.config.split('s_h')[-2][1:]), 
+	          conf=args.config,
+              length=float(args.config.split('_')[1].split('s')[0]),
               time_window=100.0, 
               binary=False, 
               norm_channel=True,

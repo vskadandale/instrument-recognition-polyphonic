@@ -75,7 +75,7 @@ def main():
     aparser.add_argument('-m',
                          action='store',
                          dest='model',
-                         help='-m model for preprocessing. At the moment, han16 is the only model that we have.)
+                         help='-m model for preprocessing. At the moment, han16 is the only model that we have.')
     aparser.add_argument('-c',
                          action='store',
                          dest='channel',
@@ -95,11 +95,11 @@ def main():
     try:
         if args.model in ALLOWED_MODELS:
             model_module = importlib.import_module(".{}".format(args.model), "experiments.models")
-            print "{} imported as 'model'".format(args.model)
+            print("{} imported as 'model'".format(args.model))
         else:
-            print "The specified model is not allowed. At the moment, han16 is the only model that we have."
-    except ImportError, e:
-        print e
+            print("The specified model is not allowed. At the moment, han16 is the only model that we have.")
+    except ImportError as e:
+        print(e)
     preprocess(model_module,args.config,args.data_type,args.channel)
 
 

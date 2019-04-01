@@ -1,0 +1,9 @@
+kwargs = {'length': 3.0, 'time_window': 100.0, 'binary': False, 'threshold': None}
+groupID = Group 4
+start_from = 0
+label_aggr = None
+norm_channel = True
+save_size = 20
+out_path = .
+conf = _3s_h25
+in_path = /media/venkatesh/slave/dataset/iid/MedleyDB
