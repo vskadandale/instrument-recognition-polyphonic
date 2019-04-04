@@ -8,7 +8,8 @@ import pandas as pd
 import sys 
 sys.path.append('../..')
 from settings import *
-
+import  models.deep.experiments.models.han16
+from models.deep.experiments.models.han16 import compute_spectrograms
 """
 This code extracts the mel-spectrograms from the audio belonging to training set and stores them. 
 These mel-spectrograms are the input to the CNNs.
@@ -22,14 +23,13 @@ def create_folder(path):
         os.makedirs(path,0o755) # setting permissions for the folder
 
 
-def preprocess(model_module,config,data_type,channel):
-    path_to_dataset=os.path.join(PATH_TO_WAV_FILES,data_type,'wavs_'+config)
-    path_to_features=os.path.join(MEDLEY_TRAIN_FEATURE_BASEPATH,config,data_type,channel)
+def preprocess(model_module,data_type,channel):
+    path_to_dataset=os.path.join(PATH_TO_WAV_FILES,data_type,channel)
+    path_to_features=os.path.join(MEDLEY_TRAIN_FEATURE_BASEPATH,data_type,channel)
     create_folder(path_to_features)
-    path_to_labels=PATH_TO_LABELS+config
-    path_to_metadata=os.path.join(PATH_TO_METADATA,config,data_type,channel)
+    path_to_metadata=os.path.join(PATH_TO_METADATA,data_type,channel)
     create_folder(path_to_metadata)
-    path_to_means_dir=os.path.join(MODEL_MEANS_BASEPATH,config,data_type,channel)
+    path_to_means_dir=os.path.join(MODEL_MEANS_BASEPATH,data_type,channel)
     create_folder(path_to_means_dir)
     path_to_means=os.path.join(path_to_means_dir,'mean')
     
@@ -37,35 +37,31 @@ def preprocess(model_module,config,data_type,channel):
     list_of_files=np.array([])
     start=True
     rownum=0
-    create_folder(path_to_features)
     labels=pd.DataFrame()
     for dataset in datasets:
-        empty_files=0
         print("[Dataset] : " + dataset)
-        folder_path=os.path.join(path_to_dataset,dataset)
-        channel_path=os.path.join(folder_path,channel)
-        sub_folders=sorted(os.listdir(channel_path),key=lambda x: int(os.path.splitext(x)[0]))
-        for sub_folder in sub_folders:
-            sub_folder_path=os.path.join(channel_path,sub_folder)
-            files=sorted(os.listdir(sub_folder_path),key=lambda x: int(os.path.splitext(x)[0]))
-            for filename in files:
-                f_name="{dataset}_{sub_folder}_{filename}".format(dataset=dataset,sub_folder=sub_folder,filename=filename)
-                list_of_files=np.append(list_of_files,f_name)
-                for i, spec_segment in enumerate(model_module.compute_spectrograms(os.path.join(sub_folder_path, filename))):
-                    feature_filename = os.path.join(path_to_features,"{f_name}_{segment_idx}".format(f_name=f_name,segment_idx=i))
-                    if(start):
-                        rowsum=np.copy(spec_segment)
-                        start=False
-                    else:        
-                        rowsum=rowsum+spec_segment
-                    np.save(feature_filename, spec_segment)
-                    rownum+=1
+        dataset_path=os.path.join(PATH_TO_LABELS,dataset+'.npy')
+        data=np.load(dataset_path).item()
 
-            #Load labels in sequence into npy for each dataset_i
-            csv_path=os.path.join(path_to_labels,dataset,'y',sub_folder+'.csv')
-            temp_df=pd.read_csv(csv_path,header=None)
-            labels=pd.concat([labels,temp_df], ignore_index=True)
-            del temp_df
+        for path in list(data['X']):
+            partial_path=(path[0]).strip()
+            filepath=os.path.join(path_to_dataset,partial_path)
+            list_of_files=np.append(list_of_files,filepath)
+            for i, spec_segment in enumerate(model_module.compute_spectrograms(filepath)):
+                #feature_filename = os.path.join(path_to_features,partial_path[:-4])
+                feature_filename = os.path.join(path_to_features,
+                                                "{f_name}_{segment_idx}".format(f_name=partial_path, segment_idx=i))
+                create_folder(os.path.dirname(feature_filename))
+                if(start):
+                    rowsum=np.copy(spec_segment)
+                    start=False
+                else:
+                    rowsum=rowsum+spec_segment
+                np.save(feature_filename, spec_segment)
+                rownum+=1
+        #Load labels in sequence into npy for each dataset_i
+        labels=pd.concat([labels,pd.DataFrame(data['y'])], ignore_index=True)
+
     np.save(os.path.join(path_to_metadata,'medley_train_filenames'),list_of_files)
     np.save(os.path.join(path_to_metadata,'medley_train_labels'),labels)
     np.save(path_to_means,rowsum/float(rownum))
@@ -100,7 +96,7 @@ def main():
             print("The specified model is not allowed. At the moment, han16 is the only model that we have.")
     except ImportError as e:
         print(e)
-    preprocess(model_module,args.config,args.data_type,args.channel)
+    preprocess(model_module,args.data_type,args.channel)
 
 
 if __name__ == "__main__":

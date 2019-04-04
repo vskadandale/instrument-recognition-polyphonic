@@ -37,14 +37,16 @@ MEDLEY_N_CLASSES=11
 
 ### FOR DEEP LEARNING METHOD ###
 #PATH_TO_WAV_FILES='/homedtic/vshenoykadandale/instrument-recognition/data/'
-PATH_TO_LABELS='/homedtic/vshenoykadandale/instrument-recognition/data/dataset_'
-PATH_TO_METADATA='/homedtic/vshenoykadandale/DeepLearning/metadata/'
-PATH_TO_RESULTS='/homedtic/vshenoykadandale/DeepLearning/results/'
-MODEL_MEANS_BASEPATH = './means/'
-MODEL_HISTORY_BASEPATH = './history/'
-MODEL_WEIGHT_BASEPATH = './weights/'
-MEDLEY_TRAIN_FEATURE_BASEPATH = '/homedtic/vshenoykadandale/DeepLearning/data/'
-MEDLEY_TEST_FEATURE_BASEPATH = '/homedtic/vshenoykadandale/DeepLearning/test_data/'
+PATH_TO_DL_DATA_DIRECTORY=os.path.join(PATH_TO_DATA_DIRECTORY,'deep')
+PATH_TO_LABELS=os.path.join(PATH_TO_DATA_DIRECTORY,'splits_3s_h25')
+PATH_TO_METADATA=os.path.join(PATH_TO_DL_DATA_DIRECTORY,'metadata')
+PATH_TO_RESULTS=os.path.join(PATH_TO_DL_DATA_DIRECTORY,'results')
+MODEL_MEANS_BASEPATH = os.path.join(PATH_TO_DL_DATA_DIRECTORY,'means')
+MODEL_HISTORY_BASEPATH = os.path.join(PATH_TO_DL_DATA_DIRECTORY,'history')
+MODEL_WEIGHT_BASEPATH = os.path.join(PATH_TO_DL_DATA_DIRECTORY,'weights')
+
+MEDLEY_TRAIN_FEATURE_BASEPATH = os.path.join(PATH_TO_DL_DATA_DIRECTORY,'train-feat')
+MEDLEY_TEST_FEATURE_BASEPATH = os.path.join(PATH_TO_DL_DATA_DIRECTORY,'test-feat')
 
 TRAIN_SPLIT = 0.85
 VALIDATION_SPLIT = 0.15
@@ -52,5 +54,5 @@ N_TRAINING_SET = 6705
 MAX_EPOCH_NUM = 400
 EARLY_STOPPING_EPOCH = 20
 SGD_LR_REDUCE = 5
-BATCH_SIZE = 16
+BATCH_SIZE = 8
 ALLOWED_MODELS = ['han16', 'singlelayer', 'multilayer']
