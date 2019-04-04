@@ -3,16 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="2a08201b-2d6e-4895-8b22-f6a57c2bbf79" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/deep-learning/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/models/deep/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/deep-learning/evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/deep/evaluation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/deep-learning/experiments/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/deep/experiments/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/deep-learning/experiments/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/deep/experiments/models/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/deep-learning/experiments/models/han16.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/deep/experiments/models/han16.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/deep-learning/preprocessing_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/deep/preprocessing_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/deep-learning/preprocessing_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/deep/preprocessing_train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/deep-learning/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/models/deep/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/deep-learning/training.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/deep/training.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_prepar/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data_prepar/config.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_prepar/data_prep.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_prepar/data_prep.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_prepar/dataset_0_instr_distr.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data_prepar/dataset_0_instr_distr.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_prepar/dataset_1_instr_distr.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data_prepar/dataset_1_instr_distr.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_prepar/dataset_2_instr_distr.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data_prepar/dataset_2_instr_distr.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_prepar/dataset_3_instr_distr.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data_prepar/dataset_3_instr_distr.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_prepar/dataset_4_instr_distr.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data_prepar/dataset_4_instr_distr.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_prepar/song_instr.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/data_prepar/song_instr.pkl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/traditional/feature_extractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/traditional/feature_extractor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/traditional/train_accumulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/traditional/train_accumulator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,15 +23,38 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/instrument_recognition_polyphonic$preprocessing_train.coverage" NAME="preprocessing_train Coverage Results" MODIFIED="1554215597184" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/deep" />
+    <SUITE FILE_PATH="coverage/instrument_recognition_polyphonic$gen_split.coverage" NAME="gen_split Coverage Results" MODIFIED="1554399076608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data_prepar" />
+    <SUITE FILE_PATH="coverage/instrument_recognition_polyphonic$train_accumulator.coverage" NAME="train_accumulator Coverage Results" MODIFIED="1554402377487" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/traditional" />
     <SUITE FILE_PATH="coverage/instrument_recognition_polyphonic$training.coverage" NAME="training Coverage Results" MODIFIED="1554284781127" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models/deep" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/deep/preprocessing_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="44" selection-start-line="44" selection-end-line="44" />
+            <state relative-caret-position="810">
+              <caret line="61" column="31" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/models/traditional/train_accumulator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data_prepar/gen_split.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1980">
+              <caret line="133" column="46" selection-start-line="133" selection-start-column="41" selection-end-line="133" selection-end-column="46" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -42,74 +65,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="840">
-              <caret line="56" column="14" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/deep/experiments/models/han16.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1335">
-              <caret line="99" column="27" selection-start-line="99" selection-start-column="27" selection-end-line="99" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/deep/training.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2130">
-              <caret line="156" column="92" selection-start-line="156" selection-start-column="92" selection-end-line="156" selection-end-column="92" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/traditional/feature_extractor.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="40" column="16" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/deep/dataloader.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="885">
-              <caret line="61" column="19" selection-start-line="61" selection-start-column="19" selection-end-line="61" selection-end-column="19" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/.local/lib/python3.6/site-packages/keras/utils/data_utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5655">
-              <caret line="400" selection-start-line="400" selection-end-line="400" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file:///usr/lib/python3.6/multiprocessing/pool.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1650">
-              <caret line="121" selection-start-line="121" selection-end-line="121" />
+            <state relative-caret-position="240">
+              <caret line="16" selection-start-line="16" selection-end-line="16" />
             </state>
           </provider>
         </entry>
@@ -142,6 +99,13 @@
       <find>targ</find>
       <find>TRAIN</find>
       <find>binar</find>
+      <find>labe</find>
+      <find>dataset_path</find>
+      <find>encode</find>
+      <find>encod</find>
+      <find>config</find>
+      <find>train_data_df</find>
+      <find>dec</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -152,11 +116,12 @@
       <list>
         <option value="$PROJECT_DIR$/models/deep/experiments/models/han16.py" />
         <option value="$PROJECT_DIR$/models/deep/preprocessing_train.py" />
-        <option value="$PROJECT_DIR$/settings.py" />
         <option value="$PROJECT_DIR$/models/deep/dataloader.pyi" />
         <option value="$PROJECT_DIR$/models/deep/training.py" />
         <option value="$PROJECT_DIR$/models/deep/dataloader.py" />
         <option value="$PROJECT_DIR$/models/traditional/feature_extractor.py" />
+        <option value="$PROJECT_DIR$/settings.py" />
+        <option value="$PROJECT_DIR$/models/traditional/train_accumulator.py" />
       </list>
     </option>
   </component>
@@ -171,12 +136,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="instrument-recognition-polyphonic" type="b2602c69:ProjectViewProjectNode" />
               <item name="instrument-recognition-polyphonic" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="instrument-recognition-polyphonic" type="b2602c69:ProjectViewProjectNode" />
+              <item name="instrument-recognition-polyphonic" type="462c0819:PsiDirectoryNode" />
+              <item name="data_prepar" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="instrument-recognition-polyphonic" type="b2602c69:ProjectViewProjectNode" />
@@ -199,7 +170,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -221,7 +191,29 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.training">
+  <component name="RunManager" selected="Python.train_accumulator">
+    <configuration name="gen_split" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="instrument-recognition-polyphonic" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data_prepar" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data_prepar/gen_split.py" />
+      <option name="PARAMETERS" value="-c _3s_h25" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="preprocessing_train" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="instrument-recognition-polyphonic" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -237,6 +229,28 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/deep/preprocessing_train.py" />
       <option name="PARAMETERS" value="-m han16 -c mid -t original -l 3s_h25" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train_accumulator" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="instrument-recognition-polyphonic" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models/traditional" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/traditional/train_accumulator.py" />
+      <option name="PARAMETERS" value="-c mid -t harmonic" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -270,9 +284,13 @@
     <list>
       <item itemvalue="Python.preprocessing_train" />
       <item itemvalue="Python.training" />
+      <item itemvalue="Python.train_accumulator" />
+      <item itemvalue="Python.gen_split" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.train_accumulator" />
+        <item itemvalue="Python.gen_split" />
         <item itemvalue="Python.training" />
         <item itemvalue="Python.preprocessing_train" />
       </list>
@@ -290,22 +308,25 @@
       <updated>1554131211228</updated>
       <workItem from="1554131212318" duration="32905000" />
       <workItem from="1554306373565" duration="2652000" />
+      <workItem from="1554397370823" duration="5110000" />
+      <workItem from="1554402551605" duration="28000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35557000" />
+    <option name="totallyTimeSpent" value="40695000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25235197" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.257886" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32937366" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39870688" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39848813" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -318,7 +339,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" weight="0.32982844" />
+      <window_info active="true" anchor="right" id="SciView" order="3" visible="true" weight="0.32982844" />
       <window_info anchor="right" id="Database" order="4" />
     </layout>
   </component>
@@ -359,62 +380,79 @@
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
+    <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>create_folder(train_path)
+with open(os.path.join(train_path,'train_data_{}.pkl'.format(ind)), 'wb') as fp:
+    pickle.dump(train_data_df.astype('float32'), fp)
+del train_data_df
+print(&quot;[TRAIN DATA] Features of &quot;+dataset+&quot; and channel &quot;+args.channel+&quot; pickled!&quot;)
+with open(os.path.join(train_path,'train_label_{}.pkl'.format(ind)), 'wb') as fp:
+    pickle.dump(train_label_df, fp)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>create_folder(train_path)
+        with open(os.path.join(train_path,'train_data_{}.pkl'.format(ind)), 'wb') as fp:
+            pickle.dump(train_data_df.astype('float32'), fp)
+        del train_data_df
+        print(&quot;[TRAIN DATA] Features of &quot;+dataset+&quot; and channel &quot;+args.channel+&quot; pickled!&quot;)
+        with open(os.path.join(train_path,'train_label_{}.pkl'.format(ind)), 'wb') as fp:
+            pickle.dump(train_label_df, fp)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+    </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>self._load_features(inputs[excerpt])</expression-string>
+        <expression-string>train_data_df</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>targets[excerpt]</expression-string>
+        <expression-string>train_data_df.loc[k]=(dictValues)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>keras.utils.to_categorical(targets, num_classes=self.n_classes)</expression-string>
+        <expression-string>rain_data_df.loc[k]=(dictValues)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>np.empty((self.batch_size, MEDLEY_N_CLASSES))</expression-string>
+        <expression-string>features[index].decode(&quot;utf-8&quot;)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>np.empty((self.batch_size), MEDLEY_N_CLASSES)</expression-string>
+        <expression-string>flatJson</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>np.empty((self.batch_size, *self.dim))</expression-string>
+        <expression-string>train_label_df = pd.concat([train_label_df,pd.DataFrame(data['y'])],ignore_index=True)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>extended_x_train[0].replace(PATH_TO_WAV_FILES,MEDLEY_TRAIN_FEATURE_BASEPATH)</expression-string>
+        <expression-string>k</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>extended_x_train[0].replace(PATH_TO_WAV_FILES,PATH_TO_FEATURES)</expression-string>
+        <expression-string>data['y']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>extended_x_train[0]</expression-string>
+        <expression-string>features[index].encode(&quot;utf-8&quot;)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/lib/python3/dist-packages/apport_python_hook.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="424">
@@ -442,42 +480,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.local/lib/python3.6/site-packages/keras/callbacks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="359" column="6" selection-start-line="359" selection-start-column="6" selection-end-line="359" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/.local/lib/python3.6/site-packages/keras/callbacks.py" />
     <entry file="file://$PROJECT_DIR$/models/deep/dataloaderwww.pyi" />
-    <entry file="file://$USER_HOME$/.local/lib/python3.6/site-packages/keras/engine/training_generator.py">
+    <entry file="file://$USER_HOME$/.local/lib/python3.6/site-packages/keras/engine/training_generator.py" />
+    <entry file="file://$USER_HOME$/.local/lib/python3.6/site-packages/keras/utils/data_utils.py" />
+    <entry file="file://$PROJECT_DIR$/models/traditional/feature_extractor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="180" selection-start-line="180" selection-end-line="180" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="56" column="14" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/deep/experiments/models/han16.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1335">
-          <caret line="99" column="27" selection-start-line="99" selection-start-column="27" selection-end-line="99" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/deep/training.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2130">
-          <caret line="156" column="92" selection-start-line="156" selection-start-column="92" selection-end-line="156" selection-end-column="92" />
+        <state relative-caret-position="600">
+          <caret line="40" column="16" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -494,13 +504,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.local/lib/python3.6/site-packages/keras/utils/data_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5655">
-          <caret line="400" selection-start-line="400" selection-end-line="400" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/python3.6/multiprocessing/pool.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1650">
@@ -508,23 +511,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/traditional/feature_extractor.py">
+    <entry file="file://$PROJECT_DIR$/models/deep/training.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="40" column="16" selection-start-line="40" selection-start-column="16" selection-end-line="40" selection-end-column="16" />
+        <state relative-caret-position="844">
+          <caret line="156" column="92" selection-start-line="156" selection-start-column="92" selection-end-line="156" selection-end-column="92" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/models/deep/experiments/models/han16.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="844">
+          <caret line="99" column="27" selection-start-line="99" selection-start-column="27" selection-end-line="99" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3/dist-packages/apport_python_hook.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models/deep/preprocessing_train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="44" selection-start-line="44" selection-end-line="44" />
+        <state relative-caret-position="810">
+          <caret line="61" column="31" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_prepar/gen_split.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1980">
+          <caret line="133" column="46" selection-start-line="133" selection-start-column="41" selection-end-line="133" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/traditional/train_accumulator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
         </state>
       </provider>
     </entry>

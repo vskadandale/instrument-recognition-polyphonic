@@ -1,5 +1,6 @@
 import os
-PATH_TO_DATA_DIRECTORY='/media/venkatesh/slave/dataset/iid'
+#PATH_TO_DATA_DIRECTORY='/media/venkatesh/slave/dataset/iid'
+PATH_TO_DATA_DIRECTORY='/mnt/DATA/datasets/iid'
 SAMPLING_RATE=44100
 
 ### FOR TRADITONAL MACHINE LEARNING METHOD ###

@@ -355,7 +355,7 @@ def prep_data(in_path, conf, out_path=os.curdir, save_size=20, norm_channel=Fals
 
     # get a mapping of song names to their sorted order
     song_name_map = {e: i for i, e in enumerate(dlist)}
-    pool = Pool(3)
+    pool = Pool(21)
     matfile_path=PATH_TO_MATFILES+conf
     create_folder(matfile_path)
     for i in range(max(start_from, 0), len(dlist), save_size):

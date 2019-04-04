@@ -31,24 +31,41 @@ def extract_features(path_to_wav_file):
                                                       lowlevelFrameSize=2048,
                                                       lowlevelHopSize=1024,
                                                       lowlevelStats=['mean', 'stdev'])(path_to_wav_file)
-        features_frames = []
+        del features_frames
     except RuntimeError as e:
-        print(path_to_wav_file + " is almost silent")
+        pass
+        #print(path_to_wav_file + " is almost silent")
         #empty_files += 1
     path_to_features= path_to_wav_file.replace(os.path.basename(PATH_TO_WAV_FILES),'features').replace('.wav','.json')
     create_folder(os.path.dirname(path_to_features))
     es.YamlOutput(filename=path_to_features, format='json')(features)
-    features.clear()
+    del features,path_to_features
     return 1
 
 def main():
+    aparser = argparse.ArgumentParser()
+    aparser.add_argument('-c',
+                         action='store',
+                         dest='channel',
+                         help='-c channel in LRMS. Choose left/right/mid/side.')
+    aparser.add_argument('-t',
+                         action='store',
+                         dest='type',
+                         help='-t type of data. Choose between harmonic/original/residual.')
 
-    path_to_wavfiles = list(Path(PATH_TO_WAV_FILES).rglob("*.wav"))  ## Finds all the .wav_ files in the directory
+    args = aparser.parse_args()
+    path_to_wavfiles = list(Path(os.path.join(PATH_TO_WAV_FILES,args.type,args.channel)).rglob("*.wav"))  ## Finds all the .wav_ files in the directory
+    del args
     str_path_to_wavfiles=[i.as_posix() for i in path_to_wavfiles]
-    pool=Pool(11)
-    result=pool.map(extract_features,str_path_to_wavfiles,chunksize=1)
+    del path_to_wavfiles
+    pool=Pool(processes=23,maxtasksperchild=10)
+    result=pool.map(extract_features,str_path_to_wavfiles,chunksize=512)
+    del str_path_to_wavfiles,result
     pool.close() # no more tasks
     pool.join()
+    #for path_to_wavfile in str_path_to_wavfiles:
+    #    extract_features(path_to_wavfile)
+    del pool
 
 if __name__ == '__main__':
     main()

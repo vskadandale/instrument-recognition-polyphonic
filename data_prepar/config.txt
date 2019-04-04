@@ -6,4 +6,4 @@ norm_channel = True
 save_size = 20
 out_path = .
 conf = _3s_h25
-in_path = /media/venkatesh/slave/dataset/iid/MedleyDB
+in_path = /home/dtic/datasets/iid/MedleyDB

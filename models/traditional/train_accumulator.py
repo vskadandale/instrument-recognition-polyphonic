@@ -8,7 +8,8 @@ import pickle
 import pandas as pd
 
 #external .py files
-import json_flattener #for flatenning jsons
+#import models.traditional.json_flattener as json_flattener #for flatenning jsons
+import json_flattener#for flatenning jsons
 
 sys.path.append('../..')
 from settings import *
@@ -33,28 +34,19 @@ def main():
     aparser = argparse.ArgumentParser()
     aparser.add_argument('-c',
                          action='store',
-                         dest='config',
-                         help='-c type of the dataset. For ex: _1s_h100 for 1s with full length hop')
+                         dest='channel',
+                         help='-c which channel : left/right/mid/side')
     aparser.add_argument('-t',
                          action='store',
                          dest='data_type',
                          help='-t type of data original/harmonic/residual')
     args = aparser.parse_args()
-    if not args.config:
-        aparser.error('Please specify the data config!')
+    if not args.channel:
+        aparser.error('Please specify the data channel!')
     
-    conf=args.config
-    if args.data_type=='original':
-        features_path=PATH_TO_ORIGINAL_FEATURES+conf
-        train_path=PATH_TO_ORIGINAL_TRAINSET+conf
-    elif args.data_type=='residual':
-        features_path=PATH_TO_RESIDUAL_FEATURES+conf
-        train_path=PATH_TO_RESIDUAL_TRAINSET+conf
-    elif args.data_type=='harmonic':
-        features_path=PATH_TO_HARMONIC_FEATURES+conf
-        train_path=PATH_TO_HARMONIC_TRAINSET+conf
-    label_path=PATH_TO_DATASET_SPLIT_FOLDERS+conf
-    channels=['left','right','mid','side']
+    features_path = os.path.join(PATH_TO_FEATURES,args.data_type,args.channel)
+    train_path = os.path.join(PATH_TO_TRAINSET,args.data_type,args.channel)
+
     datasets=['dataset_0','dataset_1','dataset_2','dataset_3']
     features=[]
 
@@ -62,63 +54,48 @@ def main():
 
     for ind,dataset in enumerate(datasets):
         #Load samples
-        for channel in channels:
-            k=0
-            train_label_df=pd.DataFrame()
-            dataset_path=os.path.join(features_path,dataset,channel)
-            folders=sorted(os.listdir(dataset_path),key=lambda x: int(os.path.splitext(x)[0]))
-            for folder in folders:
-                folder_path=os.path.join(dataset_path,folder)
-                files=sorted(os.listdir(folder_path),key=lambda x: int(os.path.splitext(x)[0]))
-                for filename in files:
-                    filepath=os.path.join(folder_path,filename)
-                    jsonFile = io.open(filepath,"r",encoding="utf-8")
-                    jsonToPython = json.loads(jsonFile.read(), strict=False)
-                    flatJson = json_flattener.flatten_json(jsonToPython)
-                    
-                    #Gather metadata on encountering first json
-                    if first_time:
-                        keys=flatJson.keys()
-                        for e in keys:
-                            key=e.encode("ascii")
-                            if 'lowlevel' in key:
-                                features.append(key)
-                        dictValues={}
-                        train_data_df=pd.DataFrame(dictValues, columns=sorted(features)).astype('float32')
-                    if k==0:
-                        dictValues={}
-                        train_data_df=pd.DataFrame(dictValues, columns=sorted(features)).astype('float32')
-                    for index in range(len(features)):
-                        dictValues[features[index]]=flatJson.get(features[index])
-                    train_data_df.loc[k]=(dictValues)
-                    del flatJson
-                    k+=1
-                    first_time=False
+        k=0
+        train_label_df=pd.DataFrame()
+        print("[Dataset] : " + dataset)
+        dataset_path = os.path.join(PATH_TO_LABELS, dataset + '.npy')
+        data = np.load(dataset_path).item()
 
+        for path in list(data['X']):
+            partial_path = (path[0]).strip()
+            filepath = os.path.join(features_path, partial_path[:-3]+'json')
+            jsonFile = io.open(filepath,"r",encoding="utf-8")
+            jsonToPython = json.loads(jsonFile.read(), strict=False)
+            flatJson = json_flattener.flatten_json(jsonToPython)
 
+            #Gather metadata on encountering first json
+            if first_time:
+                keys=flatJson.keys()
+                for e in keys:
+                    key=e.encode("ascii").decode("utf-8")
+                    if 'lowlevel' in key:
+                        features.append(key)
+                dictValues={}
+                train_data_df=pd.DataFrame(dictValues, columns=sorted(features)).astype('float32')
+            if k==0:
+                dictValues={}
+                train_data_df=pd.DataFrame(dictValues, columns=sorted(features)).astype('float32')
+            for index in range(len(features)):
+                dictValues[features[index]]=flatJson.get(features[index])
+            train_data_df.loc[k]=(dictValues)
+            del flatJson
+            k+=1
+            first_time=False
 
-            train_data_dump_path=os.path.join(train_path,channel)
-            create_folder(train_data_dump_path)
-            with open(os.path.join(train_data_dump_path,'train_data_{}.pkl'.format(ind)), 'wb') as fp:
-                pickle.dump(train_data_df.astype('float32'), fp)
+        train_label_df = pd.concat([train_label_df,pd.DataFrame(data['y'])],ignore_index=True)
+        create_folder(train_path)
+        with open(os.path.join(train_path,'train_data_{}.pkl'.format(ind)), 'wb') as fp:
+            pickle.dump(train_data_df.astype('float32'), fp)
 
-            del train_data_df
-            print("[TRAIN DATA] Features of "+dataset+" and channel "+channel+" pickled!")
-            
-            #Load labels
-            label_dir_path=os.path.join(label_path,dataset,'y')
-            label_files=sorted(os.listdir(label_dir_path),key=lambda x: int(os.path.splitext(x)[0]))
-            for csv in label_files:
-                csv_path=os.path.join(label_dir_path,csv)
-                temp_df=pd.read_csv(csv_path,header=None)
-                train_label_df=pd.concat([train_label_df,temp_df], ignore_index=True) 
-                del temp_df
+        del train_data_df
+        print("[TRAIN DATA] Features of "+dataset+" and channel "+args.channel+" pickled!")
 
-
-            train_label_dump_path=os.path.join(train_path,channel)
-            create_folder(train_label_dump_path)
-            with open(os.path.join(train_label_dump_path,'train_label_{}.pkl'.format(ind)), 'wb') as fp:
-                pickle.dump(train_label_df, fp)
+        with open(os.path.join(train_path,'train_label_{}.pkl'.format(ind)), 'wb') as fp:
+            pickle.dump(train_label_df, fp)
 
 
 if __name__ == '__main__':
